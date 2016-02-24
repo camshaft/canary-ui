@@ -39,10 +39,11 @@ UI.prototype = {
   },
   hashchange: function() {
     var self = this;
-    self._onhashchange(location.hash);
-    window.addEventListener('hashchange', function() {
+    function onChange() {
       self._onhashchange(location.hash);
-    }, false);
+    }
+    setTimeout(onChange, 1000);
+    window.addEventListener('hashchange', onChange);
     return self;
   },
   _onhashchange: function(hash) {
