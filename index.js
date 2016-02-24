@@ -25,17 +25,30 @@ UI.prototype = {
     return this;
   },
   render: function() {
-    var store = this.store;
-    var list = this._ul(store);
+    var list = this._ul(this.store);
 
     return DOM('div', {
       id: 'canary-ui'
     }, [
-      this._reset(store),
-      this._close(store),
-      this._minimize(store),
+      this._reset(),
+      this._close(),
+      this._minimize(),
       list
     ]);
+  },
+  sessionStorage: function() {
+    var overrides = {};
+
+    try {
+      this._storage = window.sessionStorage;
+      overrides = JSON.parse(this._storage.canary || '{}');
+    } catch (e) {}
+
+    for (var k in overrides) {
+      this.store.override(k, overrides[k]);
+    }
+
+    return this;
   },
   hashchange: function() {
     var self = this;
@@ -46,6 +59,15 @@ UI.prototype = {
     window.addEventListener('hashchange', onChange);
     return self;
   },
+  set: function(feature, variant) {
+    this.store.override(feature, variant);
+    if (this._storage) this._storage.canary = JSON.stringify(this.store._overrides);
+    return this;
+  },
+  reset: function() {
+    this.store.reset();
+    if (this._storage) delete this._storage.canary;
+  },
   _onhashchange: function(hash) {
     if (hash.indexOf('#canary') !== 0) return;
     this.open();
@@ -53,22 +75,23 @@ UI.prototype = {
     try {
       var overrides = JSON.parse(parts[1] || '{}');
       for (var k in overrides) {
-        this.store.override(k, overrides[k]);
+        this.set(k, overrides[k]);
       }
     } catch(e) {}
   },
-  _reset: function(store) {
+  _reset: function() {
+    var self = this;
     return a('reset', 'reset', function() {
-      store.reset();
+      self.reset();
     });
   },
-  _close: function(store) {
+  _close: function() {
     var self = this;
     return a('action close', '×', function() {
       self.close();
     });
   },
-  _minimize: function(store) {
+  _minimize: function() {
     var self = this;
     var minimize = a('action minimize', '_', function() {
       var el = self._el;
@@ -112,19 +135,21 @@ UI.prototype = {
       this._select(feature);
   },
   _checkbox: function(feature) {
+    var self = this;
     var el = DOM('input', {
       type: 'checkbox',
       checked: feature.selected,
       onchange: function() {
-        feature.set(!!el.checked);
+        self.set(feature.name, !!el.checked);
       }
     });
     return el;
   },
   _select: function(feature) {
+    var self = this;
     var el = DOM('select', {
       onchange: function() {
-        feature.set(el.value);
+        self.set(feature.name, el.value);
       }
     }, feature.variants.map(function(variant) {
       return DOM('option', {
