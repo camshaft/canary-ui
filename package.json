@@ -1,6 +1,6 @@
 {
   "name": "canary-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "feature variant selection ui for canary-store",
   "main": "index.js",
   "scripts": {
