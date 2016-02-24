@@ -1,0 +1,134 @@
+#canary-ui {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 16777271;
+  padding: 20px;
+  margin: 20px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  background: white;
+  border: 1px solid #aaa;
+  border-right-color: #999;
+  border-bottom-color: #555;
+  border-left-color: #999;
+  box-shadow: 0 2px 9px rgba(0,0,0, .5);
+  transition: .15s linear box-shadow border-color padding background;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#canary-ui.minimized {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: 0 0 0 transparent;
+}
+
+#canary-ui .reset {
+  margin-right: 50px;
+  transition: .15s linear all;
+}
+
+#canary-ui.minimized .reset {
+  margin-right: 0;
+}
+
+#canary-ui ul {
+  display: block;
+  max-height: 2000px;
+  padding-left: 0;
+  margin-top: 10px;
+  margin-bottom: 0;
+  opacity: 1;
+  transition: .15s linear all;
+}
+
+#canary-ui.minimized ul {
+  max-height: 0;
+  margin-top: 0;
+  opacity: 0;
+}
+
+#canary-ui li {
+  list-style: none;
+}
+
+#canary-ui label {
+  display: block;
+  float: left;
+  width: 100%;
+  max-height: 30px;
+  clear: both;
+  transition: .15s linear all;
+}
+
+#canary-ui.minimized label {
+  max-height: 0;
+}
+
+#canary-ui span {
+  display: block;
+  float: left;
+}
+
+#canary-ui input,
+#canary-ui select {
+  float: right;
+}
+
+#canary-ui input:checked ~ span {
+  color: black
+}
+
+#canary-ui input ~ span {
+  color: #ccc
+}
+
+#canary-ui a {
+  display: inline-block;
+  padding: 5px 10px;
+  font-weight: 100;
+  color: white;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition: .15s linear all;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#canary-ui.minimized a {
+  background: #ccc;
+}
+
+#canary-ui .action {
+  float: right;
+  width: 28px;
+  margin-left: 4px;
+  clear: none;
+  text-align: right;
+}
+
+#canary-ui a,
+#canary-ui a:visited,
+#canary-ui a:active {
+  color: white;
+  background: #254d73;
+}
+
+#canary-ui a:hover {
+  color: white;
+  background: #19334c;
+}
+
+#canary-ui a + a {
+  float: left;
+}
+
+#canary-ui a + a {
+  float: right;
+  clear: both;
+}

@@ -1,0 +1,26 @@
+{
+  "name": "canary-ui",
+  "version": "0.1.0",
+  "description": "feature variant selection ui for canary-store",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camshaft/canary-ui.git"
+  },
+  "author": "Cameron Bytheway <bytheway.cameron@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/camshaft/canary-ui/issues"
+  },
+  "homepage": "https://github.com/camshaft/canary-ui#readme",
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "should": "^8.2.2"
+  },
+  "dependencies": {
+    "draggy": "^1.6.1"
+  }
+}
