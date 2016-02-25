@@ -78,7 +78,7 @@ UI.prototype = {
     var parts = hash.split('=');
     if (parts[0] === '#canary') this.open();
     try {
-      var overrides = JSON.parse(parts[1] || '{}');
+      var overrides = JSON.parse(decodeURIComponent(parts[1] || '{}'));
       for (var k in overrides) {
         this.set(k, overrides[k]);
       }
