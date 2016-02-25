@@ -11,12 +11,13 @@ UI.prototype = {
     var el = this._el;
     if (!el) {
       el = this._el = this.render();
-      this.target.appendChild(el);
       require.ensure(['./lib/draggable', '!!style-loader!css-loader!./canary.css'], function(require) {
         require('!!style-loader!css-loader!./canary.css');
         (require('./lib/draggable'))(el);
       });
     }
+    var target = this.target;
+    if (!target.contains(el)) target.appendChild(el);
     el.style.display = '';
     return this;
   },
@@ -55,7 +56,11 @@ UI.prototype = {
     function onChange() {
       self._onhashchange(location.hash);
     }
+    onChange();
+
+    // Set a timeout in case the element gets ripped out of the DOM
     setTimeout(onChange, 1000);
+
     window.addEventListener('hashchange', onChange);
     return self;
   },
@@ -70,8 +75,8 @@ UI.prototype = {
   },
   _onhashchange: function(hash) {
     if (hash.indexOf('#canary') !== 0) return;
-    this.open();
     var parts = hash.split('=');
+    if (parts[0] === '#canary') this.open();
     try {
       var overrides = JSON.parse(parts[1] || '{}');
       for (var k in overrides) {
