@@ -26,6 +26,7 @@ UI.prototype = {
     return this;
   },
   toggle: function() {
+    if (!this._el) return this.open();
     return this._el.style.display === 'none' ?
       this.open() :
       this.close();
