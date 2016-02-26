@@ -25,6 +25,11 @@ UI.prototype = {
     this._el.style.display = 'none';
     return this;
   },
+  toggle: function() {
+    return this._el.style.display === 'none' ?
+      this.open() :
+      this.close();
+  },
   render: function() {
     var list = this._ul(this.store);
 
